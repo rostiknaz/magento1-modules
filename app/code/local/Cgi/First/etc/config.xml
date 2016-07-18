@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cgi_First>
+            <version>1.0.0</version>
+        </Cgi_First>
+    </modules>
+    <global>
+        <blocks>
+            <first>
+                <class>Cgi_First_Block</class>
+            </first>
+        </blocks>
+        <models>
+            <first>
+                <class>Cgi_First_Model</class>
+            </first>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <cgi_first>
+                    <file>cgi_first.xml</file>
+                </cgi_first>
+            </updates>
+        </layout>
+        <routers>
+            <cgi_first>
+                <use>standard</use>
+                <args>
+                    <module>Cgi_First</module>
+                    <frontName>test</frontName>
+                </args>
+            </cgi_first>
+        </routers>
+    </frontend>
+
+</config>

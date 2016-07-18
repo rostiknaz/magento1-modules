@@ -1,0 +1,8 @@
+<h1>This is Magento Blog</h1>
+<?php foreach ($this->getPosts() as $post) {?>
+    <ul>
+        <li><?=$post['title']?></li>
+        <li><?=$post['author']?></li>
+        <li><?=$post['date_create']?></li>
+    </ul>
+<?php } ?>

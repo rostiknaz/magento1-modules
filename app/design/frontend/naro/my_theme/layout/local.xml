@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+
+            <!-- Remove the rwd parent's styles.css file -->
+            <action method="removeItem"><type>skin_css</type><name>css/styles.css</name></action>
+
+            <!--&lt;!&ndash; Add it again before your css/myStyle.css file &ndash;&gt;-->
+            <action method="addItem"><type>skin_css</type><name>css/styles.css</name></action>
+            <!-- Loading css/myStyle.css file just after parent's styles.css -->
+            <action method="addItem"><type>skin_css</type><name>css/local.css</name></action>
+
+        </reference>
+        <!--<reference name="content">-->
+            <!--<block type="first/test" name="first_test1" template="cgi/test.phtml"/>-->
+        <!--</reference>-->
+    </default>
+
+</layout>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cgi_Blog>
+            <version>1.0.0</version>
+        </Cgi_Blog>
+    </modules>
+    <global>
+        <blocks>
+            <blog>
+                <class>Cgi_Blog_Block</class>
+            </blog>
+        </blocks>
+        <models>
+            <blog>
+                <class>Cgi_Blog_Model</class>
+            </blog>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <cgi_blog>
+                    <file>cgi_blog.xml</file>
+                </cgi_blog>
+            </updates>
+        </layout>
+        <routers>
+            <cgi_blog>
+                <use>standard</use>
+                <args>
+                    <module>Cgi_Blog</module>
+                    <frontName>blog</frontName>
+                </args>
+            </cgi_blog>
+        </routers>
+    </frontend>
+
+</config>

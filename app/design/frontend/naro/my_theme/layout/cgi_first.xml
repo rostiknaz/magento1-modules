@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <catalog_product_view translate="label">
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/product.css</name></action>
+        </reference>
+        <reference name="content">
+            <!--<remove name="product.info.addtocart" />-->
+            <block type="first/test" name="first_test" template="first/test.phtml"/>
+        </reference>
+    </catalog_product_view>
+    <cgi_first_index_hello translate="label">
+        <reference name="head">
+            <action method="setTitle"><title>Account Dashboard</title></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="first/test" name="first_page" template="first/first.phtml"/>
+            <block type="core/template" name="contactForm" template="contacts/form.phtml"/>
+        </reference>
+    </cgi_first_index_hello>
+</layout>

@@ -1,0 +1,15 @@
+a:5:{i:0;s:740:"Error in file: "/var/www/magento1/app/code/core/Mage/Admin/sql/admin_setup/upgrade-1.6.1.1-1.6.1.2.php" - SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'permission_variable' already exists, query was: CREATE TABLE `permission_variable` (
+  `variable_id` int UNSIGNED NOT NULL auto_increment COMMENT 'Variable ID' ,
+  `variable_name` varchar(255) NOT NULL default '' COMMENT 'Config Path' ,
+  `is_allowed` bool NOT NULL default '0' COMMENT 'Mark that config can be processed by filters' ,
+  PRIMARY KEY (`variable_id`, `variable_name`),
+  UNIQUE `UNQ_PERMISSION_VARIABLE_VARIABLE_NAME` (`variable_name`)
+) COMMENT='System variables that can be processed via content filter' ENGINE=INNODB charset=utf8 COLLATE=utf8_general_ci";i:1;s:914:"#0 /var/www/magento1/app/code/core/Mage/Core/Model/Resource/Setup.php(644): Mage::exception('Mage_Core', 'Error in file: ...')
+#1 /var/www/magento1/app/code/core/Mage/Core/Model/Resource/Setup.php(437): Mage_Core_Model_Resource_Setup->_modifyResourceDb('upgrade', '1.6.1.1', '1.6.1.2')
+#2 /var/www/magento1/app/code/core/Mage/Core/Model/Resource/Setup.php(320): Mage_Core_Model_Resource_Setup->_upgradeResourceDb('1.6.1.1', '1.6.1.2')
+#3 /var/www/magento1/app/code/core/Mage/Core/Model/Resource/Setup.php(235): Mage_Core_Model_Resource_Setup->applyUpdates()
+#4 /var/www/magento1/app/code/core/Mage/Core/Model/App.php(428): Mage_Core_Model_Resource_Setup::applyAllUpdates()
+#5 /var/www/magento1/app/code/core/Mage/Core/Model/App.php(354): Mage_Core_Model_App->_initModules()
+#6 /var/www/magento1/app/Mage.php(684): Mage_Core_Model_App->run(Array)
+#7 /var/www/magento1/index.php(83): Mage::run('', 'store')
+#8 {main}";s:3:"url";s:70:"/index.php/admin/dashboard/index/key/4ae325746ee6ab48a7edfbd30a4e0a7c/";s:11:"script_name";s:10:"/index.php";s:4:"skin";s:7:"default";}
