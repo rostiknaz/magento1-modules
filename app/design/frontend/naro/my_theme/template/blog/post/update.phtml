@@ -1,0 +1,14 @@
+
+<?php $post = $this->getPost(); ?>
+<h1>Update post</h1>
+<form id="update" action="<?=Mage::getUrl('blog/post/save')?>" method="post">
+    <p>Title:</p> <input type="text" class="input-text required-entry validate-no-html-tags validate-length" value="<?=$post->getTitle()?>" name="title">
+    <br>
+    <p>Description:</p> <textarea rows="7" name="description" value="" class="input-text required-entry validate-no-html-tags"><?=$post->getPost()?></textarea>
+    <br><br>
+    <button type="submit">Save post</button>
+</form>
+
+<script>
+    myForm = new VarienForm('update');
+</script>

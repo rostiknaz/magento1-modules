@@ -4,8 +4,12 @@ $post = $this->getPost();
 ?>
 
 <h1><?=$post->getTitle()?></h1>
+<p>
+    <a href="<?=Mage::getUrl('blog/post/update/') . 'id/' . $post->getBlogpostId()?> ">Edit post |</a>
+    <a href="<?=Mage::getUrl('blog/post/delete/') . 'id/' . $post->getBlogpostId()?> "> Delete</a>
+</p>
 <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>
-<p>Date create: <?=$post->getDate() ?></p>
+<p>Date create: <?=$post->getDateCreate() ?></p>
 
 <br>
 <p><?=$post->getPost()?></p>

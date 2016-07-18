@@ -22,4 +22,26 @@
             <block type="blog/post" name="page_post" template="blog/post/view.phtml" />
         </reference>
     </cgi_blog_post_view>
+    <cgi_blog_post_create>
+        <reference name="head">
+            <action method="setTitle"><title>Create post</title></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="blog/post" name="create_post" template="blog/post/create.phtml" />
+        </reference>
+    </cgi_blog_post_create>
+    <cgi_blog_post_update>
+        <reference name="head">
+            <action method="setTitle"><title>Update post</title></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="blog/post" name="update_post" template="blog/post/update.phtml" />
+        </reference>
+    </cgi_blog_post_update>
 </layout>
