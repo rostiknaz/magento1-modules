@@ -8,21 +8,23 @@
  */
 class Cgi_Blog_Model_Post extends Mage_Core_Model_Abstract
 {
-
-    public function getPosts()
+    protected function _construct()
     {
-        $posts = [
-            [
-                'title' => 'Post1',
-                'author' => 'User1',
-                'date_create' => '21.06.2016'
-            ],
-            [
-                'title' => 'Post2',
-                'author' => 'User2',
-                'date_create' => '22.06.2016'
-            ]
-        ];
-        return $posts;
+        $this->_init('blog/post');
+    }
+
+    public function getListPosts()
+    {
+        $customer = $this->getCollection();
+        $customer
+            ->getSelect()
+            ->join(array('customer' => 'customer_entity_varchar'), "customer.entity_id = author_id AND customer.attribute_id = 7",array('customer.value as last_name'))
+            ->join(array('customer1' => 'customer_entity_varchar'), "customer1.entity_id = author_id AND customer1.attribute_id = 5",array('customer1.value as first_name'));
+        return $customer;
+    }
+
+    public function getPostById($id)
+    {
+        return $this->load($id);
     }
 }

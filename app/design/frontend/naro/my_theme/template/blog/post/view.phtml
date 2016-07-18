@@ -1,0 +1,11 @@
+<?php
+
+$post = $this->getPost();
+?>
+
+<h1><?=$post->getTitle()?></h1>
+<p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>
+<p>Date create: <?=$post->getDate() ?></p>
+
+<br>
+<p><?=$post->getPost()?></p>

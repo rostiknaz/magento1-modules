@@ -1,8 +1,11 @@
-<h1>This is Magento Blog</h1>
-<?php foreach ($this->getPosts() as $post) {?>
-    <ul>
-        <li><?=$post['title']?></li>
-        <li><?=$post['author']?></li>
-        <li><?=$post['date_create']?></li>
-    </ul>
+<h1>List posts:</h1>
+<a  type="s  fhref=""blog/create">Add new post</a>
+<?php
+foreach($this->getAllPosts() as $post){ ?>
+    <h2><a href="blog/post/view/id/<?=$post->getBlogpostId()?>"><?=$post->getTitle()?></a></h2>
+    <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>
+    <p>Date create: <?=$post->getDate()?></p>
+    <p>Description: <?=Mage::helper('core/string')->truncate($post->getPost(), 50);?></p>
+    <hr>
+    <br>
 <?php } ?>

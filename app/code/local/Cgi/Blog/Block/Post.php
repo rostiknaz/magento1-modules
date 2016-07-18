@@ -8,9 +8,15 @@
  */
 class Cgi_Blog_Block_Post extends Mage_Core_Block_Template
 {
-    public function getPosts(){
-        $blog = Mage::getModel('blog/post');
-        return $blog->getPosts();
+    public function getAllPosts()
+    {
+        return Mage::getModel('blog/post')->getListPosts();
+    }
+
+    public function getPost()
+    {
+        $params = $this->getRequest()->getParams();
+        return Mage::getModel('blog/post')->getPostById($params['id']);
     }
 
 }

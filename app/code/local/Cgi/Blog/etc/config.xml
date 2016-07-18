@@ -14,7 +14,16 @@
         <models>
             <blog>
                 <class>Cgi_Blog_Model</class>
+                <resourceModel>blog_resource</resourceModel>
             </blog>
+            <blog_resource>
+                <class>Cgi_Blog_Model_Resource</class>
+                <entities>
+                    <post>
+                        <table>blog_posts</table>
+                    </post>
+                </entities>
+            </blog_resource>
         </models>
     </global>
     <frontend>
