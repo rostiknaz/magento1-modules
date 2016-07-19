@@ -1,8 +1,15 @@
+<?php $posts = $this->getAllPosts();?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <h1>List posts:</h1>
+<p>Sort by:
+    <a href="<?=Mage::getUrl('blog/index/index/') . 'column/first_name/sort/' . (($posts['order'] == 'ASC') ? 'DESC' : 'ASC')?> ">Author |</a>
+    <a href="<?=Mage::getUrl('blog/index/index/') . 'column/date_create/sort/' . (($posts['order'] == 'ASC') ? 'DESC' : 'ASC')?> "> Date</a>
+</p>
+<br>
 <a style="float: right;" href="<?=Mage::getUrl('blog/post/create')?>">Add new post</a>
 <?php
-foreach($this->getAllPosts() as $post){ ?>
-    <h2><a href="<?=Mage::getUrl('blog/post/view/') . 'id/' . $post->getBlogpostId()?>"><?=$post->getTitle()?></a></h2>
+foreach($posts['posts'] as $post){ ?>
+    <h2><a href="<?=Mage::getUrl('blog/post/view/') . 'id/' . $post->getId()?>"><?=$post->getTitle()?></a></h2>
     <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>
     <p>Date create: <?=$post->getDateCreate()?></p>
     <p>Description: <?=Mage::helper('core/string')->truncate($post->getPost(), 50);?></p>

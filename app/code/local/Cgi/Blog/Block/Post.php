@@ -10,13 +10,19 @@ class Cgi_Blog_Block_Post extends Mage_Core_Block_Template
 {
     public function getAllPosts()
     {
-        return Mage::getModel('blog/post')->getListPosts();
+        $order =  $this->getRequest()->getParams();
+        return Mage::getModel('blog/post')->getListPosts((isset($order['column']) && !empty($order['column'])) ? $order['column'] : 'date_create' , $order['sort']);
     }
 
     public function getPost()
     {
-        $params = $this->getRequest()->getParams();
-        return Mage::getModel('blog/post')->getPostById($params['id']);
+        $post =  $this->getRequest()->getParams();
+        return Mage::getModel('blog/post')->getPostById($post['id']);
+    }
+
+    public function checkPost()
+    {
+        return $this->getPost()->checkPostAuthor();
     }
 
 }

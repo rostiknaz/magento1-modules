@@ -4,12 +4,15 @@ $post = $this->getPost();
 ?>
 
 <h1><?=$post->getTitle()?></h1>
-<p>
-    <a href="<?=Mage::getUrl('blog/post/update/') . 'id/' . $post->getBlogpostId()?> ">Edit post |</a>
-    <a href="<?=Mage::getUrl('blog/post/delete/') . 'id/' . $post->getBlogpostId()?> "> Delete</a>
-</p>
+<?php if($this->checkPost()):  ?>
+    <p>
+        <a href="<?=Mage::getUrl('blog/post/update/') . 'id/' . $post->getId()?> ">Edit post |</a>
+        <a href="<?=Mage::getUrl('blog/post/delete/') . 'id/' . $post->getId()?> "> Delete</a>
+    </p>
+<?php endif; ?>
 <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>
 <p>Date create: <?=$post->getDateCreate() ?></p>
-
+<br>
+<div style="text-align:center"><img style="width:100%" src="<?=Mage::getUrl('media/uploads/') . $post->getImage()?> "></div>
 <br>
 <p><?=$post->getPost()?></p>
