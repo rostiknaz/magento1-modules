@@ -60,38 +60,23 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
             $checkPost = $postModel->checkPostAuthor();
         }
         if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
-            try {
-                $uploader = new Varien_File_Uploader('image');
-                $uploader->setAllowedExtensions(array('jpg','jpeg','gif'));
-                $uploader->setAllowRenameFiles(false);
-                $uploader->setFilesDispersion(false);
-
-                $path       = Mage::getBaseDir('media') . '/uploads';
-                $newName    = time() . $_FILES['image']['name'];
-                if($postModel->getImage()){
-                    unlink(Mage::getBaseDir('media') . '/uploads/' . $postModel->getImage());
-                }
-                $uploader->save($path, $newName);
-            }catch(Exception $e) {
-                echo "Exception: ".$e; exit;
-            }
+            $imageName = $this->_uploadImage($postModel);
         }
-        try {
-            if($checkPost && isset($data['title']) && !empty($data['title'])) {
+        if($checkPost && isset($data['title']) && !empty($data['title'])) {
+            try {
                 $postModel->setPost($data['description'])
                     ->setTitle($data['title'])
-                    ->setImage($newName)
+                    ->setImage($imageName)
                     ->setAuthorId($customerData->getCustomer()->getId());
                 $postModel->save();
                 $customerData->addSuccess($this->__('Post has been saved!!'));
-            } else {
-                $customerData->addError($this->__('You have no permission to update this post!!!'));
+            } catch(Exception $e){
+                $customerData->addException($e, $this->__($e));
             }
-            $this->_redirect('blog');
-        } catch(Exception $e){
-            $customerData->addException($e, $this->__($e));
-            $this->_redirect('blog');
+        } else {
+            $customerData->addError($this->__('You have no permission to update this post!!!'));
         }
+        $this->_redirect('blog');
     }
 
     public function deleteAction()
@@ -113,5 +98,25 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
             $customerData->addError($this->__('Post with id = ' . '"' . $data['id'] . '"' . ' not found!!!'));
         }
         $this->_redirect('blog');
+    }
+
+    private function _uploadImage($postModel)
+    {
+        try {
+            $uploader = new Varien_File_Uploader('image');
+            $uploader->setAllowedExtensions(array('jpg','jpeg','gif'));
+            $uploader->setAllowRenameFiles(false);
+            $uploader->setFilesDispersion(false);
+
+            $path       = Mage::getBaseDir('media') . '/uploads';
+            $newName    = time() . $_FILES['image']['name'];
+            if($postModel->getImage()){
+                unlink(Mage::getBaseDir('media') . '/uploads/' . $postModel->getImage());
+            }
+            $uploader->save($path, $newName);
+            return $newName;
+        }catch(Exception $e) {
+            echo "Exception: ".$e; exit;
+        }
     }
 }
