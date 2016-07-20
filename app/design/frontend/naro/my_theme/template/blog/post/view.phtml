@@ -12,7 +12,9 @@ $post = $this->getPost();
 <?php endif; ?>
 <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>
 <p>Date create: <?=$post->getDateCreate() ?></p>
-<br>
-<div style="text-align:center"><img style="width:100%" src="<?=Mage::getUrl('media/uploads/') . $post->getImage()?> "></div>
+<?php if($post->getImage()) { ?>
+    <br>
+    <div style="text-align:center"><img style="width:100%" src="<?=Mage::getUrl('media/uploads/') . $post->getImage()?> "></div>
+<?php } ?>
 <br>
 <p><?=$post->getPost()?></p>

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Cgi_Blog>
-            <version>1.0.0</version>
+            <version>0.0.1</version>
         </Cgi_Blog>
     </modules>
     <global>
@@ -22,9 +22,19 @@
                     <post>
                         <table>blog_posts</table>
                     </post>
+                    <customer>
+                        <table>customer_entity</table>
+                    </customer>
                 </entities>
             </blog_resource>
         </models>
+        <resources>
+            <cgi_blog_setup>
+                <setup>
+                    <module>Cgi_Blog</module>
+                </setup>
+            </cgi_blog_setup>
+        </resources>
     </global>
     <frontend>
         <layout>

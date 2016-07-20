@@ -1,12 +1,14 @@
 <?php $posts = $this->getAllPosts();?>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<form style="float: right;" action="<?=Mage::getUrl('blog/post/create')?>">
+    <button type="submit">Add new post</button>
+</form>
 <h1>List posts:</h1>
 <p>Sort by:
     <a href="<?=Mage::getUrl('blog/index/index/') . 'column/first_name/sort/' . (($posts['order'] == 'ASC') ? 'DESC' : 'ASC')?> ">Author |</a>
     <a href="<?=Mage::getUrl('blog/index/index/') . 'column/date_create/sort/' . (($posts['order'] == 'ASC') ? 'DESC' : 'ASC')?> "> Date</a>
 </p>
 <br>
-<a style="float: right;" href="<?=Mage::getUrl('blog/post/create')?>">Add new post</a>
 <?php
 foreach($posts['posts'] as $post){ ?>
     <h2><a href="<?=Mage::getUrl('blog/post/view/') . 'id/' . $post->getId()?>"><?=$post->getTitle()?></a></h2>

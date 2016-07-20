@@ -51,36 +51,46 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
 
     public function saveAction()
     {
+        $checkPost = true;
         $customerData = Mage::getSingleton('customer/session');
         $data = $this->getRequest()->getParams();
-        if(isset($_FILES['image']['name'])) {
+        $postModel = Mage::getModel('blog/post');
+        if (isset($data['post_id']) && !empty($data['post_id'])) {
+            $postModel->getPostById($data['post_id']);
+            $checkPost = $postModel->checkPostAuthor();
+        }
+        if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
             try {
                 $uploader = new Varien_File_Uploader('image');
-                $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
+                $uploader->setAllowedExtensions(array('jpg','jpeg','gif'));
                 $uploader->setAllowRenameFiles(false);
                 $uploader->setFilesDispersion(false);
 
                 $path       = Mage::getBaseDir('media') . '/uploads';
                 $newName    = time() . $_FILES['image']['name'];
+                if($postModel->getImage()){
+                    unlink(Mage::getBaseDir('media') . '/uploads/' . $postModel->getImage());
+                }
                 $uploader->save($path, $newName);
             }catch(Exception $e) {
                 echo "Exception: ".$e; exit;
             }
         }
         try {
-            $postModel = Mage::getModel('blog/post');
-            if (isset($data['post_id']) && !empty($data['post_id'])) {
-                $postModel->load($data['post_id']);
+            if($checkPost && isset($data['title']) && !empty($data['title'])) {
+                $postModel->setPost($data['description'])
+                    ->setTitle($data['title'])
+                    ->setImage($newName)
+                    ->setAuthorId($customerData->getCustomer()->getId());
+                $postModel->save();
+                $customerData->addSuccess($this->__('Post has been saved!!'));
+            } else {
+                $customerData->addError($this->__('You have no permission to update this post!!!'));
             }
-            $postModel->setPost($data['description'])
-                ->setTitle($data['title'])
-                ->setImage($newName)
-                ->setAuthorId($customerData->getCustomer()->getId());
-            $postModel->save();
-            $customerData->addSuccess($this->__('Post has been saved!!'));
             $this->_redirect('blog');
         } catch(Exception $e){
-            $customerData->addException($e, $this->__('Unable to update or create the alert subscription.'));
+            $customerData->addException($e, $this->__($e));
+            $this->_redirect('blog');
         }
     }
 
@@ -93,8 +103,10 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
             if(!$postModel->checkPostAuthor()){
                 $customerData->addError($this->__('You have no permission to delete this post!!!'));
             } else {
-                $postModel->load($data['id'])
-                    ->delete();
+                if($postModel->getImage()){
+                    unlink(Mage::getBaseDir('media') . '/uploads/' . $postModel->getImage());
+                }
+                $postModel->delete();
                 $customerData->addSuccess($this->__('Post has been deleted!!!'));
             }
         } else {

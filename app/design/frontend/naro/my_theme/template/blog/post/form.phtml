@@ -6,6 +6,10 @@
     <br>
     <p>Description:</p> <textarea rows="7" name="description" value="" class="input-text required-entry validate-no-html-tags"><?=$post->getPost()?></textarea>
     <br><br>
+    <?php if($post->getImage()) { ?>
+        <div style="text-align:center"><img style="width:100%" src="<?=Mage::getUrl('media/uploads/') . $post->getImage()?> "></div>
+    <?php } ?>
+    <br>
     <p>Select image: <input type="file" name="image" id="image" title="<?php echo $this->__('Image') ?>" class="input-file" /></p>
     <br><br>
     <input type="hidden" name="post_id" value="<?=$post->getId()?>">
