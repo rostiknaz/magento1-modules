@@ -11,7 +11,8 @@ class Cgi_Blog_Block_Post extends Mage_Core_Block_Template
     public function getAllPosts()
     {
         $order =  $this->getRequest()->getParams();
-        return Mage::getModel('blog/post')->getListPosts((isset($order['column']) && !empty($order['column'])) ? $order['column'] : 'date_create' , $order['sort']);
+        $column = (isset($order['column']) && !empty($order['column'])) ? $order['column'] : 'date_create';
+        return Mage::getModel('blog/post')->getListPosts($column, $order['sort']);
     }
 
     public function getPost()
@@ -23,6 +24,14 @@ class Cgi_Blog_Block_Post extends Mage_Core_Block_Template
     public function checkPost()
     {
         return $this->getPost()->checkPostAuthor();
+    }
+
+    public function getAllProduct()
+    {
+        $products = Mage::getModel('catalog/product')
+            ->getCollection()
+            ->addAttributeToSelect('name','id');
+        return $products;
     }
 
 }

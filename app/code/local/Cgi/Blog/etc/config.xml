@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Cgi_Blog>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Cgi_Blog>
     </modules>
     <global>
@@ -25,6 +25,12 @@
                     <customer>
                         <table>customer_entity</table>
                     </customer>
+                    <product>
+                        <table>catalog_product_entity</table>
+                    </product>
+                    <post_product>
+                        <table>blog_post_product</table>
+                    </post_product>
                 </entities>
             </blog_resource>
         </models>

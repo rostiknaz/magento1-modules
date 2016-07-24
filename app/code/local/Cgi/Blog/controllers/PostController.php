@@ -14,6 +14,7 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
         $session = Mage::getSingleton('customer/session');
         $param =  $this->getRequest()->getParams('id');
         $post = Mage::getModel('blog/post')->getPostById($param['id']);
+//        print_r($post);exit;
         if(!empty($param['id']) && $post->getId()) {
             $this->loadLayout();
             $this->getLayout()->getBlock('head')->setTitle($this->__($post->getTitle()));
@@ -54,6 +55,7 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
         $checkPost = true;
         $customerData = Mage::getSingleton('customer/session');
         $data = $this->getRequest()->getParams();
+//        print_r($data);exit;
         $postModel = Mage::getModel('blog/post');
         if (isset($data['post_id']) && !empty($data['post_id'])) {
             $postModel->getPostById($data['post_id']);

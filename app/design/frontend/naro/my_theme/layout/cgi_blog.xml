@@ -13,10 +13,13 @@
     </cgi_blog_index_index>
     <cgi_blog_post_view>
         <reference name="root">
-            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <action method="setTemplate"><template>page/3columns.phtml</template></action>
         </reference>
         <reference name="content">
             <block type="blog/post" name="page_post" template="blog/post/view.phtml" />
+        </reference>
+        <reference name="left">
+            <block type="blog/post" name="products" template="blog/post/products_bar.phtml" />
         </reference>
     </cgi_blog_post_view>
     <cgi_blog_post_create>
