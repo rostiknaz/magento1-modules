@@ -1,14 +1,19 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: naro
- * Date: 18.07.16
- * Time: 11:01
+ * Post controller
+ *
+ * @category   Cgi
+ * @package    Blog
+ * @author     Nazymko Rostyslav CGI Trainee group beta
  */
 class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
 {
 
+    /**
+     * Action for post view page.
+     * Generating layout template for post view page after checking that post.
+     */
     public function viewAction()
     {
         $session = Mage::getSingleton('customer/session');

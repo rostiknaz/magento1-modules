@@ -12,9 +12,13 @@
 <?php
 foreach($posts['posts'] as $post){ ?>
     <h2><a href="<?=Mage::getUrl('blog/post/view/') . 'id/' . $post->getId()?>"><?=$post->getTitle()?></a></h2>
+    <?php if($post->getImage()) { ?>
+        <div style="text-align:center"><img style="width:50%" src="<?=Mage::getUrl('media/uploads/') . $post->getImage()?> "></div>
+        <br>
+    <?php } ?>
     <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>
     <p>Date create: <?=$post->getDateCreate()?></p>
-    <p>Description: <?=Mage::helper('core/string')->truncate($post->getPost(), 50);?></p>
+    <p>Description: <?=Mage::helper('core/string')->truncate($post->getPost(), 200);?></p>
     <hr>
     <br>
 <?php } ?>
