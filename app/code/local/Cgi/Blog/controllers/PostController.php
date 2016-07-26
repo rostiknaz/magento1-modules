@@ -4,7 +4,7 @@
  * Post controller
  *
  * @category   Cgi
- * @package    Blog
+ * @package    Cgi_Blog
  * @author     Nazymko Rostyslav CGI Trainee group beta
  */
 class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action

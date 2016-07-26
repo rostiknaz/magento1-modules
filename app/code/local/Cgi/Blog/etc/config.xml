@@ -34,6 +34,11 @@
                 </entities>
             </blog_resource>
         </models>
+        <helpers>
+            <blog>
+                <class>Cgi_Blog_Helper</class>
+            </blog>
+        </helpers>
         <resources>
             <cgi_blog_setup>
                 <setup>
