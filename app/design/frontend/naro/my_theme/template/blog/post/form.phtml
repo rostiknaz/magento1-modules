@@ -1,7 +1,9 @@
 
 <?php
 $post = $this->getPost();
+$products_with_post = $post->getProducts();
 $products = $this->getAllProduct();
+//print_r($products->getData());exit;
 ?>
 <h1><?=empty($post->getId()) ? 'Create post' : 'Update post'?></h1>
 <form id="update" action="<?=Mage::getUrl('blog/post/save')?>" method="post" enctype="multipart/form-data">
@@ -17,8 +19,17 @@ $products = $this->getAllProduct();
     <br><br>
     <p>Select products:</p>
     <select size="10" name="products[]" multiple>
-        <?php foreach($products as $product){?>
-        <option value="<?=$product->getId();?>"><?=$product->getName();?></option>
+        <?php foreach($products as $product){
+            if(!empty($post->getId())) {
+                foreach($products_with_post as $product_post) {
+                    if($product_post->getId() == $product->getId()) { ?>
+                    <option value="<?=$product->getId();?>"  selected><?=$product->getName();?></option>
+                        <?php } ?>
+                <?php } ?>
+                <option value="<?=$product->getId();?>"><?=$product->getName();?></option>
+            <?php } else { ?>
+                <option value="<?=$product->getId();?>"><?=$product->getName();?></option>
+                <?php } ?>
         <?php } ?>
     </select>
     <br><br>

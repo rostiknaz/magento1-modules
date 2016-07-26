@@ -18,8 +18,8 @@ class Cgi_Blog_Model_Resource_Post extends Mage_Core_Model_Resource_Db_Abstract
     {
         $select = parent::_getLoadSelect($field, $value, $object);
         $select
-            ->join(array('customer' => 'customer_entity_varchar'), "customer.entity_id = author_id AND customer.attribute_id = 7", array('customer.value as last_name'))
-            ->join(array('customer1' => 'customer_entity_varchar'), "customer1.entity_id = author_id AND customer1.attribute_id = 5",array('customer1.value as first_name'));
+            ->join(array('customer'         => 'customer_entity_varchar'), "customer.entity_id = author_id AND customer.attribute_id = 7",  array('customer.value as last_name'))
+            ->join(array('customer1'        => 'customer_entity_varchar'), "customer1.entity_id = author_id AND customer1.attribute_id = 5",array('customer1.value as first_name'));
         return $select;
     }
 }

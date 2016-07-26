@@ -14,7 +14,6 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
         $session = Mage::getSingleton('customer/session');
         $param =  $this->getRequest()->getParams('id');
         $post = Mage::getModel('blog/post')->getPostById($param['id']);
-//        print_r($post);exit;
         if(!empty($param['id']) && $post->getId()) {
             $this->loadLayout();
             $this->getLayout()->getBlock('head')->setTitle($this->__($post->getTitle()));
@@ -53,9 +52,9 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
     public function saveAction()
     {
         $checkPost = true;
+        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         $customerData = Mage::getSingleton('customer/session');
         $data = $this->getRequest()->getParams();
-//        print_r($data);exit;
         $postModel = Mage::getModel('blog/post');
         if (isset($data['post_id']) && !empty($data['post_id'])) {
             $postModel->getPostById($data['post_id']);
@@ -71,6 +70,20 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
                     ->setImage($imageName)
                     ->setAuthorId($customerData->getCustomer()->getId());
                 $postModel->save();
+                if(!empty($data['products'])){
+                    if($postModel->getProducts()->getData()){
+                        $write->delete(
+                            "blog_post_product",
+                            "blogpost_id=" . $postModel->getId()
+                        );
+                    }
+                    foreach ($data['products'] as $product_id){
+                        $write->insert(
+                            "blog_post_product",
+                            array("blogpost_id" => $postModel->getId(), "product_id" => $product_id)
+                        );
+                    }
+                }
                 $customerData->addSuccess($this->__('Post has been saved!!'));
             } catch(Exception $e){
                 $customerData->addException($e, $this->__($e));
@@ -84,6 +97,7 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
     public function deleteAction()
     {
         $customerData = Mage::getSingleton('customer/session');
+        $write = Mage::getSingleton('core/resource')->getConnection('core_write');
         $data = $this->getRequest()->getParams();
         $postModel = Mage::getModel('blog/post')->getPostById($data['id']);
         if(isset($data['id']) && !empty($data['id']) && $postModel->getId()) {
@@ -92,6 +106,12 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
             } else {
                 if($postModel->getImage()){
                     unlink(Mage::getBaseDir('media') . '/uploads/' . $postModel->getImage());
+                }
+                if($postModel->getProducts()){
+                    $write->delete(
+                        "blog_post_product",
+                        "blogpost_id=" . $postModel->getId()
+                    );
                 }
                 $postModel->delete();
                 $customerData->addSuccess($this->__('Post has been deleted!!!'));
