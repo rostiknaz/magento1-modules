@@ -15,7 +15,9 @@ class Cgi_Blog_Model_Post extends Mage_Core_Model_Abstract
 
     public function getListPosts($column = 'date_create', $order = 'DESC')
     {
-        $customer = $this->getCollection()->setOrder($column, $order);
+        $customer = $this->getCollection()
+            ->addFieldToFilter('status', array('eq'=>1))
+            ->setOrder($column, $order);
         $customer
             ->getSelect()
             ->join(array('customer' => 'customer_entity_varchar'), "customer.entity_id = author_id AND customer.attribute_id = 7",array('customer.value as last_name'))
@@ -39,6 +41,14 @@ class Cgi_Blog_Model_Post extends Mage_Core_Model_Abstract
             ->getSelect()
             ->join(array('product_post' => 'blog_post_product'), "product_post.product_id = entity_id",array('product_post.product_id as product_id'))
             ->where('product_post.blogpost_id = ' . $this->getId());
+        return $products;
+    }
+
+    public function getAllProduct()
+    {
+        $products = Mage::getModel('catalog/product')
+            ->getCollection()
+            ->addAttributeToSelect('name','id');
         return $products;
     }
 

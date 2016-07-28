@@ -11,6 +11,6 @@ class Cgi_Blog_Block_Adminhtml_Renderer_Addimage extends Mage_Adminhtml_Block_Wi
 
     public function render(Varien_Object $row)
     {
-        return '<img style="width:100%" src="' . Mage::getBaseUrl('media') . 'uploads/' . $row->getImage() . '">';
+        return $row->getImage() ? '<img style="width:100%" src="' . Mage::getBaseUrl('media')  . $row->getImage() . '">' : '';
     }
 }

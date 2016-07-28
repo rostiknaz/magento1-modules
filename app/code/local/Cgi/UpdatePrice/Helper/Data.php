@@ -25,30 +25,12 @@
  */
 
 /**
- * Blog helper
+ * UpdatePrice helper
  *
  * @author
  */
-class Cgi_Blog_Helper_Data extends Mage_Core_Helper_Abstract
+class Cgi_UpdatePrice_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
-    public function uploadImage($model)
-    {
-        try {
-            $uploader = new Varien_File_Uploader('image');
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif'));
-            $uploader->setAllowRenameFiles(false);
-            $uploader->setFilesDispersion(false);
 
-            $path       = Mage::getBaseDir('media') . '/uploads';
-            $newName    = time() . $_FILES['image']['name'];
-            if($model->getImage()){
-                unlink(Mage::getBaseDir('media') . '/' . $model->getImage());
-            }
-            $uploader->save($path, $newName);
-            return $newName;
-        }catch(Exception $e) {
-            echo "Exception: ".$e; exit;
-        }
-    }
 }

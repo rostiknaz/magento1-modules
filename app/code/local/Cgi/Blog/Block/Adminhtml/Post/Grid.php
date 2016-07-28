@@ -38,7 +38,7 @@ class Cgi_Blog_Block_AdminHtml_Post_Grid extends Mage_Adminhtml_Block_Widget_Gri
     protected function _prepareColumns()
     {
         $helper = Mage::helper('cgi_blog');
-
+        $status = ['Disabled','Enabled'];
         $this->addColumn('blogpost_id', array(
             'header' => $helper->__('Post Id'),
             'index'  => 'blogpost_id'
@@ -67,6 +67,14 @@ class Cgi_Blog_Block_AdminHtml_Post_Grid extends Mage_Adminhtml_Block_Widget_Gri
             'width'  => '300px',
             'renderer' => 'blog/adminhtml_renderer_addimage',
         ));
+        $this->addColumn('status', array(
+            'header' => $helper->__('Status'),
+            'align'    => 'center',
+            'type'     => 'options',
+            'options'  => $status,
+            'index'  => 'status',
+            'renderer' => 'blog/adminhtml_renderer_status',
+        ));
 
         $this->addColumn('date_create', array(
             'header'   => $helper->__('Date Create'),
@@ -78,6 +86,37 @@ class Cgi_Blog_Block_AdminHtml_Post_Grid extends Mage_Adminhtml_Block_Widget_Gri
         $this->addExportType('*/*/exportInchooExcel', $helper->__('Excel XML'));
 
         return parent::_prepareColumns();
+    }
+
+    protected function _prepareMassaction()
+    {
+        $this->setMassactionIdField('post_id');
+        $this->getMassactionBlock()->setFormFieldName('post_id');
+
+        $this->getMassactionBlock()->addItem('delete', array(
+            'label'=> Mage::helper('cgi_blog')->__('Delete'),
+            'url'  => $this->getUrl('*/*/massDelete', array('' => '')),        // public function massDeleteAction() in Mage_Adminhtml_Tax_RateController
+            'confirm' => Mage::helper('cgi_blog')->__('Are you sure?')
+        ));
+
+        $this->getMassactionBlock()->addItem('status', array(
+            'label'=> Mage::helper('cgi_blog')->__('Change status'),
+            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
+            'additional' => array(
+                'visibility' => array(
+                    'name' => 'status',
+                    'type' => 'select',
+                    'class' => 'required-entry',
+                    'label' => Mage::helper('cgi_blog')->__('Status'),
+                    'values' => [
+                        ['value'=>1,'label'=>'Enabled'],
+                        ['value'=>0,'label'=>'Disabled']
+                    ]
+                )
+            )
+        ));
+
+        return $this;
     }
 
     public function getGridUrl()

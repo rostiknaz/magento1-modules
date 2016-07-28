@@ -65,30 +65,18 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
             $postModel->getPostById($data['post_id']);
             $checkPost = $postModel->checkPostAuthor();
         }
+        $imageName = '';
         if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
-            $imageName = $this->_uploadImage($postModel);
+            $imageName = Mage::helper('cgi_blog')->uploadImage($postModel);
         }
+        $newImageName = ($imageName == '') ? $imageName : 'uploads/' . $imageName;
         if($checkPost && isset($data['title']) && !empty($data['title'])) {
             try {
                 $postModel->setPost($data['description'])
                     ->setTitle($data['title'])
-                    ->setImage($imageName)
+                    ->setImage($newImageName)
                     ->setAuthorId($customerData->getCustomer()->getId());
                 $postModel->save();
-                if(!empty($data['products'])){
-                    if($postModel->getProducts()->getData()){
-                        $write->delete(
-                            "blog_post_product",
-                            "blogpost_id=" . $postModel->getId()
-                        );
-                    }
-                    foreach ($data['products'] as $product_id){
-                        $write->insert(
-                            "blog_post_product",
-                            array("blogpost_id" => $postModel->getId(), "product_id" => $product_id)
-                        );
-                    }
-                }
                 $customerData->addSuccess($this->__('Post has been saved!!'));
             } catch(Exception $e){
                 $customerData->addException($e, $this->__($e));
@@ -127,23 +115,4 @@ class Cgi_Blog_PostController extends Mage_Core_Controller_Front_Action
         $this->_redirect('blog');
     }
 
-    private function _uploadImage($postModel)
-    {
-        try {
-            $uploader = new Varien_File_Uploader('image');
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif'));
-            $uploader->setAllowRenameFiles(false);
-            $uploader->setFilesDispersion(false);
-
-            $path       = Mage::getBaseDir('media') . '/uploads';
-            $newName    = time() . $_FILES['image']['name'];
-            if($postModel->getImage()){
-                unlink(Mage::getBaseDir('media') . '/uploads/' . $postModel->getImage());
-            }
-            $uploader->save($path, $newName);
-            return $newName;
-        }catch(Exception $e) {
-            echo "Exception: ".$e; exit;
-        }
-    }
 }

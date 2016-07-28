@@ -1,6 +1,7 @@
 <?php $posts = $this->getAllPosts();?>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <form style="float: right;" action="<?=Mage::getUrl('blog/post/create')?>">
+    <input type="hidden" name="id">
     <button type="submit">Add new post</button>
 </form>
 <h1>List posts:</h1>
@@ -13,7 +14,7 @@
 foreach($posts['posts'] as $post){ ?>
     <h2><a href="<?=Mage::getUrl('blog/post/view/') . 'id/' . $post->getId()?>"><?=$post->getTitle()?></a></h2>
     <?php if($post->getImage()) { ?>
-        <div style="text-align:center"><img style="width:50%" src="<?=Mage::getUrl('media/uploads/') . $post->getImage()?> "></div>
+        <div style="text-align:center"><img style="width:50%" src="<?=Mage::getUrl('media/') . $post->getImage()?> "></div>
         <br>
     <?php } ?>
     <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>

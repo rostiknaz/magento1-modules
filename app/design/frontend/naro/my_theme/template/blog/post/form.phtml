@@ -12,26 +12,10 @@ $products = $this->getAllProduct();
     <p>Description:</p> <textarea rows="7" name="description" value="" class="input-text required-entry validate-no-html-tags"><?=$post->getPost()?></textarea>
     <br><br>
     <?php if($post->getImage()) { ?>
-        <div style="text-align:center"><img style="width:100%" src="<?=Mage::getUrl('media/uploads/') . $post->getImage()?> "></div>
+        <div style="text-align:center"><img style="width:100%" src="<?=Mage::getUrl('media/') . $post->getImage()?> "></div>
     <?php } ?>
     <br>
     <p>Select image: <input type="file" name="image" id="image" title="<?php echo $this->__('Image') ?>" class="input-file" /></p>
-    <br><br>
-    <p>Select products:</p>
-    <select size="10" name="products[]" multiple>
-        <?php foreach($products as $product){
-            if(!empty($post->getId())) {
-                foreach($products_with_post as $product_post) {
-                    if($product_post->getId() == $product->getId()) { ?>
-                    <option value="<?=$product->getId();?>"  selected><?=$product->getName();?></option>
-                        <?php } ?>
-                <?php } ?>
-                <option value="<?=$product->getId();?>"><?=$product->getName();?></option>
-            <?php } else { ?>
-                <option value="<?=$product->getId();?>"><?=$product->getName();?></option>
-                <?php } ?>
-        <?php } ?>
-    </select>
     <br><br>
     <input type="hidden" name="post_id" value="<?=$post->getId()?>">
     <button type="submit">Save post</button>

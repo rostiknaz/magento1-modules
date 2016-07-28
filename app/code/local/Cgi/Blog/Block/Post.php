@@ -10,9 +10,10 @@ class Cgi_Blog_Block_Post extends Mage_Core_Block_Template
 {
     public function getAllPosts()
     {
-        $order =  $this->getRequest()->getParams();
+        $order  =  $this->getRequest()->getParams();
         $column = (isset($order['column']) && !empty($order['column'])) ? $order['column'] : 'date_create';
-        return Mage::getModel('blog/post')->getListPosts($column, $order['sort']);
+        $sort   = (isset($order['sort'])   && !empty($order['sort']))   ? $order['sort']   : 'ASC';
+        return Mage::getModel('blog/post')->getListPosts($column, $sort);
     }
 
     public function getPost()
@@ -28,10 +29,7 @@ class Cgi_Blog_Block_Post extends Mage_Core_Block_Template
 
     public function getAllProduct()
     {
-        $products = Mage::getModel('catalog/product')
-            ->getCollection()
-            ->addAttributeToSelect('name','id');
-        return $products;
+        return Mage::getModel('blog/post')->getAllProduct();
     }
 
 }
