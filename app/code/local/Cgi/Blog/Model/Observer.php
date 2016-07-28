@@ -6,7 +6,7 @@
  * Date: 26.07.16
  * Time: 14:58
  */
-class Cgi_Gridextend_Model_Observer
+class Cgi_Blog_Model_Observer
 {
 
     /**
@@ -53,10 +53,11 @@ class Cgi_Gridextend_Model_Observer
                 array(
                     'header'   => Mage::helper('sales')->__('Shipping Method'),
                     'align'    => 'left',
-//                    'type'     => 'options',
-//                    'options'  => $shippingMethods,
+                    'type'     => 'options',
+                    'options'  => $shippingMethods,
                     'index'    => 'shipping_method',
-                    'filter_index'    => 'shipping.shipping_method',
+                    'filter_condition_callback' => array($this, 'shippingFilter'),
+                    'renderer' => 'blog/adminhtml_renderer_shipping'
                 ),
                 'payment_method'
             );
@@ -75,6 +76,23 @@ class Cgi_Gridextend_Model_Observer
         $collection = $observer->getOrderGridCollection();
         $select = $collection->getSelect();
         $select->joinLeft(array('payment' => $collection->getTable('sales/order_payment')), 'payment.parent_id=main_table.entity_id',array('payment_method' => 'method'))
-                ->joinLeft(array('shipping' => $collection->getTable('sales/order')), 'shipping.entity_id=main_table.entity_id' ,array('shipping_method' => 'shipping_description'));
+                ->joinLeft(array('shipping' => $collection->getTable('sales/order')), 'shipping.entity_id=main_table.entity_id' ,array(
+                    'shipping_method' => 'shipping_description',
+                    'method'          => 'shipping_method'
+                ));
+//        print_r((string)$select);
+    }
+
+    public function shippingFilter($collection, $column)
+    {
+        if (!$value = $column->getFilter()->getValue())
+        {
+            return $this;
+        }
+
+        $collection->getSelect()
+            ->where( "shipping.shipping_method like ?", "%$value%");
+
+        return $this;
     }
 }

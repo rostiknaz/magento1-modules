@@ -35,9 +35,9 @@
             </blog_resource>
         </models>
         <helpers>
-            <blog>
+            <cgi_blog>
                 <class>Cgi_Blog_Helper</class>
-            </blog>
+            </cgi_blog>
         </helpers>
         <resources>
             <cgi_blog_setup>
@@ -65,5 +65,38 @@
             </cgi_blog>
         </routers>
     </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <cgi_blog before="Mage_Adminhtml">Cgi_Blog_Adminhtml</cgi_blog>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <cgi_blog_core_block_abstract_to_html_before>
+                        <type>singleton</type>
+                        <class>Cgi_Blog_Model_Observer</class>
+                        <method>coreBlockAbstractToHtmlBefore</method>
+                    </cgi_blog_core_block_abstract_to_html_before>
+                </observers>
+            </core_block_abstract_to_html_before>
+            <sales_order_grid_collection_load_before>
+                <observers>
+                    <cgi_blog_sales_order_grid_collection_load_before>
+                        <type>singleton</type>
+                        <class>Cgi_Blog_Model_Observer</class>
+                        <method>salesOrderGridCollectionLoadBefore</method>
+                    </cgi_blog_sales_order_grid_collection_load_before>
+                </observers>
+            </sales_order_grid_collection_load_before>
+        </events>
+    </adminhtml>
 
 </config>

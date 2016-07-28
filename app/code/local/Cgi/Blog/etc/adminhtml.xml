@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<config>
+    <menu>
+        <cgi_blog translate="title" module="cgi_blog">
+            <sort_order>210</sort_order>
+            <title>Blog</title>
+            <children>
+                <items module="cgi_blog">
+                    <title>Posts</title>
+                    <sort_order>0</sort_order>
+                    <action>adminhtml/post</action>
+                </items>
+            </children>
+        </cgi_blog>
+    </menu>
+</config>

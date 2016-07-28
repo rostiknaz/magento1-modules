@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <Cgi_Gridextend>
-            <active>true</active>
-            <codePool>local</codePool>
-        </Cgi_Gridextend>
-    </modules>
-</config>
