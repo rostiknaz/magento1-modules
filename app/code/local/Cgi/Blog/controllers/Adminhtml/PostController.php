@@ -53,7 +53,6 @@ class Cgi_Blog_Adminhtml_PostController extends Mage_Adminhtml_Controller_Action
         $customerData = Mage::getSingleton('customer/session');
         $data = $this->getRequest()->getParams();
         $postModel = Mage::getModel('blog/post')->getPostById($data['id']);
-//        print_r($data);exit;
         $imageName = '';
         if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
             $imageName = Mage::helper('cgi_blog')->uploadImage($postModel);

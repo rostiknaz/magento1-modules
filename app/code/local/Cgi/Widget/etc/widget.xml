@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<widgets>
+    <top3_product type="widget/product_top3" module="widget">
+        <name>Top3 Products</name>
+        <description type="desc">Lists the Top Products</description>
+        <parameters>
+            <title>
+                <visible>1</visible>
+                <label>Title of block that will be displayed above the top3 block</label>
+                <type>text</type>
+                <value>Top3 products:</value>
+            </title>
+            <products_count>
+                <required>1</required>
+                <visible>1</visible>
+                <value>3</value>
+                <label>Number of Products to display</label>
+                <type>text</type>
+            </products_count>
+            <!--<template>-->
+                <!--<visible>0</visible>-->
+                <!--<required>1</required>-->
+                <!--<label>Template</label>-->
+                <!--<type>text</type>-->
+                <!--<value>widget/product/top_list.phtml</value>-->
+            <!--</template>-->
+        </parameters>
+    </top3_product>
+</widgets>

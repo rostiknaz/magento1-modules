@@ -13,7 +13,6 @@ class Cgi_UpdatePrice_Adminhtml_PriceController extends Mage_Adminhtml_Controlle
     public function massPriceAction()
     {
         $data = $this->getRequest()->getParams();
-//        print_r($data);exit;
         if (!is_array($data)) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cgi_updateprice')->__('Please select product(s).'));
         } else {
@@ -28,6 +27,9 @@ class Cgi_UpdatePrice_Adminhtml_PriceController extends Mage_Adminhtml_Controlle
                             $new_price = $old_price + $data['number'];
                             break;
                         case 'substract':
+                            if($data['number'] > $old_price){
+                                $data['number'] = 0;
+                            }
                             $new_price = $old_price - $data['number'];
                             break;
                         case 'multiple':

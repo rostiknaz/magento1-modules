@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: naro
- * Date: 15.07.16
- * Time: 9:37
+ * Index controller
+ *
+ * @category   Cgi
+ * @package    Cgi_Blog
+ * @author     Nazymko Rostyslav CGI Trainee group beta
  */
 class Cgi_Blog_IndexController extends Mage_Core_Controller_Front_Action
 {
