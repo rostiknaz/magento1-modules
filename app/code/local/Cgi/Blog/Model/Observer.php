@@ -44,7 +44,6 @@ class Cgi_Blog_Model_Observer
             $shippingArray = Mage::getSingleton('shipping/config')->getActiveCarriers();
             $shippingMethods = array();
             foreach ($shippingArray as $code => $shipping) {
-                // not sure why ops_dl was not in the loop so tweaked it
                 $shippingTitle = Mage::getStoreConfig('carriers/'.$code.'/title');
                 $shippingMethods[$code] = $shippingTitle;
             }
@@ -89,7 +88,6 @@ class Cgi_Blog_Model_Observer
         {
             return $this;
         }
-
         $collection->getSelect()
             ->where( "shipping.shipping_method like ?", "%$value%");
 

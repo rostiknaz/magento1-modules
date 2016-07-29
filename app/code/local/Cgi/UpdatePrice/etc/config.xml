@@ -5,4 +5,34 @@
             <version>0.0.1</version>
         </Cgi_UpdatePrice>
     </modules>
+    <global>
+        <helpers>
+            <cgi_updateprice>
+                <class>Cgi_UpdatePrice_Helper</class>
+            </cgi_updateprice>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <cgi_updateprice before="Mage_Adminhtml">Cgi_UpdatePrice_Adminhtml</cgi_updateprice>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <core_block_abstract_prepare_layout_before>
+                <observers>
+                    <cgi_blog_core_block_abstract_prepare_layout_before>
+                        <class>Cgi_UpdatePrice_Model_Observer</class>
+                        <method>prepareMassaction</method>
+                    </cgi_blog_core_block_abstract_prepare_layout_before>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+        </events>
+    </adminhtml>
 </config>
