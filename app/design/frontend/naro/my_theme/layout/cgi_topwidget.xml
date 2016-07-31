@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<layout version="0.1.0">
+    <page_two_columns_left>
+        <reference name="left" translate="label">
+            <block type="cms/block" name="top_products">
+                <action method="setBlockId"><block_id>top3_product</block_id></action>
+            </block>
+        </reference>
+    </page_two_columns_left>
+    <page_two_columns_right translate="label">
+        <reference name="right">
+            <block type="cms/block" name="top_products">
+                <action method="setBlockId"><block_id>top3_product</block_id></action>
+            </block>
+        </reference>
+    </page_two_columns_right>
+    <page_three_columns translate="label">
+        <reference name="left">
+            <block type="cms/block" name="top_products">
+                <action method="setBlockId"><block_id>top3_product</block_id></action>
+            </block>
+        </reference>
+    </page_three_columns>
+    <catalog_category_layered translate="label">
+        <reference name="right">
+            <block type="cms/block" name="top_products">
+                <action method="setBlockId"><block_id>top3_product</block_id></action>
+            </block>
+        </reference>
+    </catalog_category_layered>
+</layout>

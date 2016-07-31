@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Cgi_Widget>
+        <Cgi_TopWidget>
             <active>true</active>
             <codePool>local</codePool>
-        </Cgi_Widget>
+            <depends>
+                <Mage_Widget />
+            </depends>
+        </Cgi_TopWidget>
     </modules>
 </config>

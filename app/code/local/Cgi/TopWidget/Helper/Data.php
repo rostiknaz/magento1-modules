@@ -29,7 +29,8 @@
  *
  * @author
  */
-class Cgi_Widget_Helper_Data extends Mage_Core_Helper_Abstract
+class Cgi_TopWidget_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
 
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<widgets>
+  <topwidget_top3product type="topwidget/top3product" translate="name description" module="topwidget">
+    <name>Top3 products</name>
+    <description>List of random top products</description>
+    <parameters>
+      <title translate="label">
+        <visible>1</visible>
+        <label>Title of block that will be displayed above the top3 block</label>
+        <type>text</type>
+        <value>Top3 products:</value>
+      </title>
+      <product_count>
+        <label>Products</label>
+        <visible>1</visible>
+        <required>1</required>
+        <type>text</type>
+        <value>3</value>
+      </product_count>
+      <template translate="label">
+        <label>Template</label>
+        <visible>0</visible>
+        <!--<values>-->
+          <!--<block_right translate="label">-->
+            <!--<value>product/top_list.phtml</value>-->
+            <!--<label>Banner Block Template {custom name}</label>-->
+          <!--</block_right>-->
+        <!--</values>-->
+        <value>topwidget/top_list.phtml</value>
+      </template>
+    </parameters>
+  </topwidget_top3product>
+</widgets>
