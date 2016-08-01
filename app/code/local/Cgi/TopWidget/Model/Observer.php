@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: naro
- * Date: 26.07.16
- * Time: 14:58
+ * Top3product widget observer
+ *
+ * @category   Cgi
+ * @package    Cgi_TopWidget
+ * @author     Nazymko Rostyslav CGI Trainee group beta
  */
 class Cgi_TopWidget_Model_Observer
 {
@@ -30,7 +31,6 @@ class Cgi_TopWidget_Model_Observer
                     'type'     => 'options',
                     'options'  => $options,
                     'index'    => 'is_top',
-//                    'renderer' => 'widget/adminhtml_renderer_toplabel'
                 ),
                 'type'
             );
@@ -50,12 +50,10 @@ class Cgi_TopWidget_Model_Observer
         if (!isset($collection)) {
             return $collection;
         }
-
         $collection
             ->addAttributeToSelect('is_top');
 
         $observer->setCollection($collection);
-//        print_r((string)$collection->getSelect());exit;
     }
 
 }

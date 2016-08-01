@@ -25,12 +25,22 @@
  */
 
 /**
- * Cgi_Widget helper
+ * Topwidget helper
  *
- * @author
+ * @category   Cgi
+ * @package    Cgi_TopWidget
+ * @author     Nazymko Rostyslav CGI Trainee group beta
  */
 class Cgi_TopWidget_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
 
+    public function getTopWidgetInstance()
+    {
+        $widget = Mage::getModel('widget/widget_instance')
+            ->getCollection()
+            ->addFieldToFilter('instance_type', ['eq'=>'topwidget/top3product']);
+        $data = $widget->getData();
+        return $data[0];
+    }
 }

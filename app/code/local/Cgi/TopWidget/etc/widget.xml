@@ -20,12 +20,6 @@
       <template translate="label">
         <label>Template</label>
         <visible>0</visible>
-        <!--<values>-->
-          <!--<block_right translate="label">-->
-            <!--<value>product/top_list.phtml</value>-->
-            <!--<label>Banner Block Template {custom name}</label>-->
-          <!--</block_right>-->
-        <!--</values>-->
         <value>topwidget/top_list.phtml</value>
       </template>
     </parameters>
