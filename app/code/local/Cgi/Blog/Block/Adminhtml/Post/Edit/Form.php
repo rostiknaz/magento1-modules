@@ -11,18 +11,10 @@ class Cgi_Blog_Block_Adminhtml_Post_Edit_Form extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareForm()
     {
-        if (Mage::getSingleton('adminhtml/session')->getPostData()) //$_SESSION = core = blog_post_data
-        {
-            $post = Mage::getSingleton('adminhtml/session')->getPostData();
-            Mage::getSingleton('adminhtml/session')->getPostData(null);
-        }
-        elseif (Mage::registry('post_data') && Mage::registry('all_products'))
-        {
+        if (Mage::registry('post_data') && Mage::registry('all_products')) {
             $post = Mage::registry('post_data');
             $allProducts = Mage::registry('all_products');
-        }
-        else
-        {
+        } else {
             $post = array();
             $allProducts = array();
         }

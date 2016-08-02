@@ -11,6 +11,11 @@
                 <class>Cgi_UpdatePrice_Helper</class>
             </cgi_updateprice>
         </helpers>
+        <models>
+            <cgi_updateprice>
+                <class>Cgi_UpdatePrice_Model</class>
+            </cgi_updateprice>
+        </models>
     </global>
     <admin>
         <routers>

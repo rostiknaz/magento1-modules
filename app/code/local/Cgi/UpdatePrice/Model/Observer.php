@@ -42,4 +42,5 @@ class Cgi_UpdatePrice_Model_Observer
             ));
         }
     }
+
 }
