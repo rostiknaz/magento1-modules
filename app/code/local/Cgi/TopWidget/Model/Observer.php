@@ -31,12 +31,13 @@ class Cgi_TopWidget_Model_Observer
                     'type'     => 'options',
                     'options'  => $options,
                     'index'    => 'is_top',
+                    'filter_index'=>'is_top'
                 ),
                 'type'
             );
 
             // Set the new columns order.. otherwise our column would be the last one
-            $block->sortColumnsByOrder();
+//            $block->sortColumnsByOrder();
         }
     }
 
