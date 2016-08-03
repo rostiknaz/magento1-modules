@@ -36,7 +36,7 @@
             <ol id="recently-viewed-items" class="mini-products-list">
                 <?php foreach ($_products as $_item): ?>
                     <li class="item">
-                        <a href="<?=Mage::getBaseUrl() . $_item->getUrlPath() ?>">
+                        <a href="<?=$_item->getProductUrl()?>">
                             <span class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
                         </a>
                         <div class="product-details">

@@ -14,7 +14,7 @@
 foreach($posts['posts'] as $post){ ?>
     <h2><a href="<?=Mage::getUrl('blog/post/view/') . 'id/' . $post->getId()?>"><?=$post->getTitle()?></a></h2>
     <?php if($post->getImage()) { ?>
-        <div style="text-align:center"><img style="width:50%" src="<?=Mage::getUrl('media/') . $post->getImage()?> "></div>
+        <div style="text-align:center"><img style="width:100%" src="<?=Mage::getUrl('media/') . $post->getImage()?> "></div>
         <br>
     <?php } ?>
     <p>Author: <?=$post->getFirstName() . ' ' . $post->getLastName()?></p>

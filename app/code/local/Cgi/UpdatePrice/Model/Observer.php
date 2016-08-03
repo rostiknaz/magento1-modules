@@ -19,28 +19,34 @@ class Cgi_UpdatePrice_Model_Observer
                 'url'  => Mage::app()->getStore()->getUrl('adminhtml/price/massPrice', array('_current'=>true)), //$block->getUrl('*/*/massPrice', array('_current'=>true)),
                 'additional' => array(
                     'visibility' => array(
-                        'name' => 'option',
-                        'type' => 'select',
-                        'class' => 'required-entry',
-                        'label' => Mage::helper('cgi_updateprice')->__('Option'),
-                        'values' => [
-                            ['value' => 'add',           'label' => 'Add'],
-                            ['value' => 'substract',     'label' => 'Substract'],
-                            ['value' => 'add_percent',   'label' => 'Add percent'],
-                            ['value' => 'substr_percent','label' => 'Substract percent'],
-                            ['value' => 'multiple',      'label' => 'Multiplication']
-                        ]
+                        'name'   => 'option',
+                        'type'   => 'select',
+                        'class'  => 'required-entry',
+                        'label'  => Mage::helper('cgi_updateprice')->__('Option'),
+                        'values' => $this->_getOptionArray()
                     ),
                     'visibility1' => array(
-                        'name' => 'number',
-                        'style'=> 'width:50px',
-                        'type' => 'text',
+                        'name'  => 'number',
+                        'style' => 'width:50px',
+                        'type'  => 'text',
                         'class' => 'required-entry',
                         'label' => Mage::helper('cgi_updateprice')->__('Number'),
                     )
                 )
             ));
         }
+    }
+
+    private function _getOptionArray()
+    {
+        $options = [
+            ['value' => 'add',           'label' => 'Add'],
+            ['value' => 'substract',     'label' => 'Substract'],
+            ['value' => 'add_percent',   'label' => 'Add percent'],
+            ['value' => 'substr_percent','label' => 'Substract percent'],
+            ['value' => 'multiple',      'label' => 'Multiplication']
+        ];
+        return $options;
     }
 
 }

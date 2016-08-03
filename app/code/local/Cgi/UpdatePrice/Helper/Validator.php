@@ -37,57 +37,86 @@ class Cgi_UpdatePrice_Helper_Validator extends Mage_Core_Helper_Abstract
     {
         switch ($option){
             case Cgi_UpdatePrice_Model_Price::ADD_OPTION:
-                $result = $this->_validateNumeric($number);
+                $result = $this->_validateAddSubstrOption($number);
                 break;
             case Cgi_UpdatePrice_Model_Price::SUBSTR_OPTION:
-                $result = $this->_validateSubstrOption($number);
+                $result = $this->_validateAddSubstrOption($number);
                 break;
             case Cgi_UpdatePrice_Model_Price::MULTILPE_OPTION:
                 $result = $this->_validateMultipleOption($number);
                 break;
             case Cgi_UpdatePrice_Model_Price::ADD_PERCENT_OPTION:
-                $result = $this->_validateAddPercentOption($number);
+                $result = $this->_validatePercentOption($number);
                 break;
             case Cgi_UpdatePrice_Model_Price::SUBSTR_PERCENT_OPTION:
-                $result = $this->_validateSubstrPercentOption($number);
+                $result = $this->_validatePercentOption($number);
                 break;
         }
         return $result;
     }
 
-//    protected function _validateAddOption($number){
-//        if($this->_validateNumeric($number) &)
-//        return true;
-//    }
-
-    protected function _validateSubstrOption($number){
-        return true;
-    }
-
-    protected function _validateMultipleOption($number){
-        return true;
-    }
-
-    protected function _validateAddPercentOption($number){
-        if($this->_validateNumeric($number)){
+    private function _isNumeric($number)
+    {
+        if(is_numeric($number)){
             return true;
         } else {
-            $this->error = 'Number does not valid';
+            $this->error = 'Number not valid!';
             return false;
         }
     }
 
-    protected function _validateSubstrPercentOption($number){
-        return true;
+    protected function _validateMultipleOption($number){
+        if($this->_isNumeric($number)) {
+            if ($number > 0.1 && $number <= 10) {
+                return true;
+            } else {
+                $this->error = 'For add and substract percent option number, should not be higher then 10';
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    protected function _validatePercentOption($number){
+        if($this->_isNumeric($number)) {
+            if ($number > 0.1 && $number <= 100) {
+                return true;
+            } else {
+                $this->error = 'For add and substract percent option, number should not be higher then 100';
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
 
-    public function _validateNumeric($number)
+
+    protected function _validateAddSubstrOption($number)
     {
-        if(is_numeric($number) && $number > 0.1){
-            return true;
+        if($this->_isNumeric($number)) {
+            if ($number > 0.1 && $number <= 10000) {
+                return true;
+            } else {
+                $this->error = 'For add and substract option number, should not be higher then 10000';
+                return false;
+            }
         } else {
-            $this->error = 'Number does not valid';
+            return false;
+        }
+    }
+
+    public function validateNewPrice($price)
+    {
+        if($this->_isNumeric($price)) {
+            if ($price > 0.1) {
+                return true;
+            } else {
+                $this->error = 'New price does not valid';
+                return false;
+            }
+        } else {
             return false;
         }
     }

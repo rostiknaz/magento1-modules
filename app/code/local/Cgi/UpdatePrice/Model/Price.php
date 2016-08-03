@@ -1,21 +1,18 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: naro
- * Date: 14.07.16
- * Time: 18:24
+ * Price model.
+ *
+ * @category   Cgi
+ * @package    Cgi_UpdatePrice
+ * @author     Nazymko Rostyslav CGI Trainee group beta
  */
 class Cgi_UpdatePrice_Model_Price extends Mage_Core_Model_Abstract
 {
     const ADD_OPTION            = 'add';
-
     const SUBSTR_OPTION         = 'substract';
-
     const MULTILPE_OPTION       = 'multiple';
-
     const ADD_PERCENT_OPTION    = 'add_percent';
-
     const SUBSTR_PERCENT_OPTION = 'substr_percent';
 
     protected $_error;
@@ -27,25 +24,11 @@ class Cgi_UpdatePrice_Model_Price extends Mage_Core_Model_Abstract
      */
     public function updatePrice($product_ids, $option, $number)
     {
-        $validator = Mage::helper('cgi_updateprice/validator');
         try {
             $productCollection = Mage::getResourceModel('catalog/product_collection')
                 ->addAttributeToSelect('price')
                 ->addFieldToFilter('entity_id',['in' => $product_ids]);
-            $sku = [];
-            foreach($productCollection as $product){
-                $oldPrice = $product->getPrice();
-                $newPrice = $this->_countNewPrice($option, $oldPrice, $number);
-                if($validator->_validateNumeric($newPrice)){
-                    $product->setPrice($newPrice);
-                } else {
-                    $sku[] = $product->getId();
-                }
-            }
-            if($sku){
-                $sku = implode(',', $sku);
-                $this->_error = 'Products with id ' . $sku . ' has negative value';
-            }
+            $this->_setPrice($productCollection, $option, $number);
             if(!$this->_error) {
                 $productCollection->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess(
@@ -66,14 +49,23 @@ class Cgi_UpdatePrice_Model_Price extends Mage_Core_Model_Abstract
      *
      * @return void
      */
-//    protected function _setPrice($productCollection)
-//    {
-//        foreach($productCollection as $product){
-//            $oldPrice = $product->getPrice();
-//            $newPrice = Mage::helper('cgi_updateprice')->countNewPrice($this->_option, $oldPrice, $this->_number);
-//            $product->setPrice($newPrice);
-//        }
-//    }
+    protected function _setPrice($productCollection, $option, $number)
+    {
+        $ids = [];
+        foreach($productCollection as $product){
+            $oldPrice = $product->getPrice();
+            $newPrice = $this->_countNewPrice($option, $oldPrice, $number);
+            if(Mage::helper('cgi_updateprice/validator')->validateNewPrice($newPrice)){
+                $product->setPrice($newPrice);
+            } else {
+                $ids[] = $product->getId();
+            }
+        }
+        if($ids){
+            $ids = implode(',', $ids);
+            $this->_error = 'Products with id ' . $ids . ' has negative new price!';
+        }
+    }
 
     /**
      * Calculate new price depending on the option.
