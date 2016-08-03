@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cgi_ShippingCost>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Cgi_ShippingCost>
+    </modules>
+</config>

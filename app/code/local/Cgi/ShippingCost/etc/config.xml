@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cgi_ShippingCost>
+            <version>0.0.1</version>
+        </Cgi_ShippingCost>
+    </modules>
+    <global>
+        <helpers>
+            <shippingcost>
+                <class>Cgi_ShippingCost_Helper</class>
+            </shippingcost>
+        </helpers>
+        <!--<models>-->
+            <!--<cgi_shippingcost>-->
+                <!--<class>Cgi_ShippingCost_Model</class>-->
+                <!--&lt;!&ndash;<resourceModel>blog_resource</resourceModel>&ndash;&gt;-->
+            <!--</cgi_shippingcost>-->
+        <!--</models>-->
+        <resources>
+            <cgi_shippingcost_setup>
+                <setup>
+                    <module>Cgi_ShippingCost</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </cgi_shippingcost_setup>
+        </resources>
+
+        <sales>
+            <quote>
+                <totals>
+                    <shippingcost>
+                        <class>Cgi_ShippingCost_Model_Total_Quote</class>
+                        <after>subtotal</after>
+                        <before>tax</before>
+                    </shippingcost>
+                </totals>
+                <item>
+                    <product_attributes>
+                        <is_top />
+                    </product_attributes>
+                </item>
+            </quote>
+            <!--<order_invoice>-->
+                <!--<totals>-->
+                    <!--<turnkeye_insurance>-->
+                        <!--<class>turnkeye_insurance/total_screen_invoice</class>-->
+                        <!--<after>subtotal</after>-->
+                        <!--<before>tax</before>-->
+                    <!--</turnkeye_insurance>-->
+                <!--</totals>-->
+            <!--</order_invoice>-->
+            <!--<order_creditmemo>-->
+                <!--<totals>-->
+                    <!--<turnkeye_insurance>-->
+                        <!--<class>turnkeye_insurance/total_screen_creditmemo</class>-->
+                        <!--<after>subtotal</after>-->
+                        <!--<before>tax</before>-->
+                    <!--</turnkeye_insurance>-->
+                <!--</totals>-->
+            <!--</order_creditmemo>-->
+        </sales>
+
+    </global>
+</config>
