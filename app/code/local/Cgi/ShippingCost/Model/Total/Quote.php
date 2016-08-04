@@ -9,10 +9,17 @@
  */
 class Cgi_ShippingCost_Model_Total_Quote extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
+    private $_totalShippingCost = 0;
 
     public function __construct()
     {
         $this->setCode('shippingcost');
+        $quote = Mage::getModel('checkout/session')->getQuote();
+        $cartItems = $quote->getAllItems();
+
+        foreach ($cartItems as $item){
+            $this->_totalShippingCost += $item->getAdditionalShippingCost();
+        }
     }
 
     /**
@@ -26,9 +33,10 @@ class Cgi_ShippingCost_Model_Total_Quote extends Mage_Sales_Model_Quote_Address_
     }
 
     /**
-     * Collect totals information about
+     * Collect totals information about additional shipping cost
      *
      * @param   Mage_Sales_Model_Quote_Address $address
+     * @return Cgi_ShippingCost_Model_Total_Quote
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -36,33 +44,28 @@ class Cgi_ShippingCost_Model_Total_Quote extends Mage_Sales_Model_Quote_Address_
         if (($address->getAddressType() == 'billing')) {
             return $this;
         }
-
-//        $amount = INSURANCE_FEE;
-
-//        if ($amount) {
-            $this->_addAmount(100);
-            $this->_addBaseAmount(100);
-//        }
+        $amount = $this->_totalShippingCost;
+        if ($amount) {
+            $this->_addAmount($amount);
+            $this->_addBaseAmount($amount);
+        }
         return $this;
     }
 
     /**
-     * Add giftcard totals information to address object
+     * Add additional shipping cost totals information to address object
      *
      * @param   Mage_Sales_Model_Quote_Address $address
+     * @return Cgi_ShippingCost_Model_Total_Quote
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
-//        print_r($address);exit;
         if (($address->getAddressType() == 'billing')) {
-//            $amount = SHIPPINGCOST_FEE;
-//            if ($amount != 0) {
-                $address->addTotal(array(
-                    'code'  => $this->getCode(),
-                    'title' => $this->getLabel(),
-                    'value' => 100
-                ));
-//            }
+            $address->addTotal(array(
+                'code'  => $this->getCode(),
+                'title' => $this->getLabel(),
+                'value' => $this->_totalShippingCost
+            ));
         }
 
         return $this;

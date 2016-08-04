@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Cgi_ShippingCost>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Cgi_ShippingCost>
     </modules>
     <global>
@@ -11,12 +11,20 @@
                 <class>Cgi_ShippingCost_Helper</class>
             </shippingcost>
         </helpers>
-        <!--<models>-->
-            <!--<cgi_shippingcost>-->
-                <!--<class>Cgi_ShippingCost_Model</class>-->
-                <!--&lt;!&ndash;<resourceModel>blog_resource</resourceModel>&ndash;&gt;-->
-            <!--</cgi_shippingcost>-->
-        <!--</models>-->
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals>Cgi_ShippingCost_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+                    <sales_order_invoice_totals>Cgi_ShippingCost_Block_Adminhtml_Sales_Order_InvoiceTotals</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Cgi_ShippingCost_Block_Adminhtml_Sales_Order_CreditmemoTotals</sales_order_creditmemo_totals>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <models>
+            <cgi_shippingcost>
+                <class>Cgi_ShippingCost_Model</class>
+            </cgi_shippingcost>
+        </models>
         <resources>
             <cgi_shippingcost_setup>
                 <setup>
@@ -25,8 +33,19 @@
                 </setup>
             </cgi_shippingcost_setup>
         </resources>
-
         <sales>
+            <fieldsets>
+                <sales_convert_quote_item>
+                    <additional_shipping_cost>
+                        <to_order_item>*</to_order_item>
+                    </additional_shipping_cost>
+                </sales_convert_quote_item>
+                <sales_convert_order_item>
+                    <additional_shipping_cost>
+                        <to_quote_item>*</to_quote_item>
+                    </additional_shipping_cost>
+                </sales_convert_order_item>
+            </fieldsets>
             <quote>
                 <totals>
                     <shippingcost>
@@ -37,29 +56,40 @@
                 </totals>
                 <item>
                     <product_attributes>
-                        <is_top />
+                        <additional_shipping_cost />
                     </product_attributes>
                 </item>
             </quote>
-            <!--<order_invoice>-->
-                <!--<totals>-->
-                    <!--<turnkeye_insurance>-->
-                        <!--<class>turnkeye_insurance/total_screen_invoice</class>-->
-                        <!--<after>subtotal</after>-->
-                        <!--<before>tax</before>-->
-                    <!--</turnkeye_insurance>-->
-                <!--</totals>-->
-            <!--</order_invoice>-->
-            <!--<order_creditmemo>-->
-                <!--<totals>-->
-                    <!--<turnkeye_insurance>-->
-                        <!--<class>turnkeye_insurance/total_screen_creditmemo</class>-->
-                        <!--<after>subtotal</after>-->
-                        <!--<before>tax</before>-->
-                    <!--</turnkeye_insurance>-->
-                <!--</totals>-->
-            <!--</order_creditmemo>-->
+            <order_invoice>
+                <totals>
+                    <shippingcost>
+                        <class>Cgi_ShippingCost_Model_Total_Invoice</class>
+                        <after>subtotal</after>
+                        <before>tax</before>
+                    </shippingcost>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <shippingcost>
+                        <class>Cgi_ShippingCost_Model_Total_Creditmemo</class>
+                        <after>subtotal</after>
+                        <before>tax</before>
+                    </shippingcost>
+                </totals>
+            </order_creditmemo>
         </sales>
-
     </global>
+    <frontend>
+        <events>
+            <sales_quote_item_set_product>
+                <observers>
+                    <shippingcost_customattribute>
+                        <class>Cgi_ShippingCost_Model_Observer</class>
+                        <method>salesQuoteItemSetAdditionalShippingCost</method>
+                    </shippingcost_customattribute>
+                </observers>
+            </sales_quote_item_set_product>
+        </events>
+    </frontend>
 </config>
