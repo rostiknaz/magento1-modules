@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<layout version="0.1.0">
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="cgi_shippingcost/addShippingTotals" name="totals"/>
+        </reference>
+    </sales_order_view>
+    <sales_email_order_items>
+        <reference name="order_totals">
+            <block type="cgi_shippingcost/addShippingTotals" name="totals2"/>
+        </reference>
+    </sales_email_order_items>
+    <sales_email_order_invoice_items>
+        <reference name="invoice_totals">
+            <block type="cgi_shippingcost/addShippingTotals" name="totals_new"/>
+        </reference>
+    </sales_email_order_invoice_items>
+
+    <sales_email_order_creditmemo_items>
+        <reference name="creditmemo_totals">
+            <block type="cgi_shippingcost/addShippingTotals" name="totals4"/>
+        </reference>
+    </sales_email_order_creditmemo_items>
+
+
+</layout>

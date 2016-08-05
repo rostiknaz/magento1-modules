@@ -12,6 +12,9 @@
             </shippingcost>
         </helpers>
         <blocks>
+            <cgi_shippingcost>
+                <class>Cgi_ShippingCost_Block</class>
+            </cgi_shippingcost>
             <adminhtml>
                 <rewrite>
                     <sales_order_totals>Cgi_ShippingCost_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
@@ -34,18 +37,6 @@
             </cgi_shippingcost_setup>
         </resources>
         <sales>
-            <fieldsets>
-                <sales_convert_quote_item>
-                    <additional_shipping_cost>
-                        <to_order_item>*</to_order_item>
-                    </additional_shipping_cost>
-                </sales_convert_quote_item>
-                <sales_convert_order_item>
-                    <additional_shipping_cost>
-                        <to_quote_item>*</to_quote_item>
-                    </additional_shipping_cost>
-                </sales_convert_order_item>
-            </fieldsets>
             <quote>
                 <totals>
                     <shippingcost>
@@ -79,8 +70,27 @@
                 </totals>
             </order_creditmemo>
         </sales>
+        <fieldsets>
+            <sales_convert_quote_item>
+                <additional_shipping_cost>
+                    <to_order_item>*</to_order_item>
+                </additional_shipping_cost>
+            </sales_convert_quote_item>
+            <sales_convert_order_item>
+                <additional_shipping_cost>
+                    <to_quote_item>*</to_quote_item>
+                </additional_shipping_cost>
+            </sales_convert_order_item>
+        </fieldsets>
     </global>
     <frontend>
+        <layout>
+            <updates>
+                <shippingcost>
+                    <file>cgi_shippingcost.xml</file>
+                </shippingcost>
+            </updates>
+        </layout>
         <events>
             <sales_quote_item_set_product>
                 <observers>

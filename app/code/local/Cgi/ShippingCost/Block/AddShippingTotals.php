@@ -3,34 +3,28 @@
 /**
  * Created by PhpStorm.
  * User: naro
- * Date: 04.08.16
- * Time: 17:14
+ * Date: 14.07.16
+ * Time: 18:16
  */
-class Cgi_ShippingCost_Block_Adminhtml_Sales_Order_Totals extends Mage_Adminhtml_Block_Sales_Order_Totals
+class Cgi_ShippingCost_Block_AddShippingTotals extends Mage_Core_Block_Template
 {
 
-    /**
-     * Initialize order totals array
-     *
-     * @return Mage_Sales_Block_Order_Totals
-     */
-    protected function _initTotals()
+    public function initTotals()
     {
-        parent::_initTotals();
         $amount = 0;
-        $orders = $this->getOrder()->getAllItems();
+        $orders = $this->getParentBlock()->getOrder()->getAllItems();
         foreach($orders as $item){
             $amount += $item->getAdditionalShippingCost();
         }
+
         if ($amount) {
-            $this->addTotalBefore(new Varien_Object(array(
+            $this->getParentBlock()->addTotalBefore(new Varien_Object(array(
                 'code'      => 'shippingcost',
                 'value'     => $amount,
                 'base_value'=> $amount,
                 'label'     => $this->helper('shippingcost')->__('Additional shipping'),
             ), array('shipping', 'tax')));
         }
-
         return $this;
     }
 }

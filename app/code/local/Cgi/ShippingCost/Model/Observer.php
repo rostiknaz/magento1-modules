@@ -14,6 +14,7 @@ class Cgi_ShippingCost_Model_Observer
     {
         $quoteItem = $observer->getQuoteItem();
         $product = $observer->getProduct();
+//        var_dump($quoteItem->getParentItemId());
         if($quoteItem->getParentItemId() == NULL) {
             $quoteItem->setAdditionalShippingCost($product->getAdditionalShippingCost());
         }

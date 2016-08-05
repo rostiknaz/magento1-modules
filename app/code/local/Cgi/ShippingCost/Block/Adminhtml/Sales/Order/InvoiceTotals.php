@@ -6,7 +6,7 @@
  * Date: 04.08.16
  * Time: 17:14
  */
-class Cgi_ShippingCost_Block_Adminhtml_Sales_Order_InvoiceTotals extends Mage_Adminhtml_Block_Sales_Order_Totals
+class Cgi_ShippingCost_Block_Adminhtml_Sales_Order_InvoiceTotals extends Mage_Adminhtml_Block_Sales_Order_Invoice_Totals
 {
 
     /**
@@ -17,7 +17,11 @@ class Cgi_ShippingCost_Block_Adminhtml_Sales_Order_InvoiceTotals extends Mage_Ad
     protected function _initTotals()
     {
         parent::_initTotals();
-        $amount = 5;
+        $amount = 0;
+        $orders = $this->getOrder()->getAllItems();
+        foreach($orders as $item){
+            $amount += $item->getAdditionalShippingCost();
+        }
         if ($amount) {
             $this->addTotalBefore(new Varien_Object(array(
                 'code'      => 'shippingcost',

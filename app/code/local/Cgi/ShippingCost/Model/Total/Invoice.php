@@ -11,8 +11,11 @@ class Cgi_ShippingCost_Model_Total_Invoice extends Mage_Sales_Model_Order_Invoic
 {
     public function collect(Mage_Sales_Model_Order_Invoice $invoice)
     {
-        $order = $invoice->getOrder();
-        $amount = 50;
+        $amount = 0;
+        $orders = $invoice->getOrder()->getAllItems();
+        foreach($orders as $item){
+            $amount += $item->getAdditionalShippingCost();
+        }
         if ($amount) {
             $invoice->setGrandTotal($invoice->getGrandTotal() + $amount);
             $invoice->setBaseGrandTotal($invoice->getBaseGrandTotal() + $amount);
