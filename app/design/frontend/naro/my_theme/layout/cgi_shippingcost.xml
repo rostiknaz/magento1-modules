@@ -21,6 +21,4 @@
             <block type="cgi_shippingcost/addShippingTotals" name="totals4"/>
         </reference>
     </sales_email_order_creditmemo_items>
-
-
 </layout>
