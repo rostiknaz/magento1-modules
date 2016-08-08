@@ -10,6 +10,7 @@ class Cgi_UpdatePrice_Model_Observer
 {
     public function prepareMassaction(Varien_Event_Observer $observer)
     {
+//        print_r($this->_getOptionArray());exit;
         $block = $observer->getEvent()->getBlock();
         if(get_class($block) =='Mage_Adminhtml_Block_Widget_Grid_Massaction'
             && $block->getRequest()->getControllerName() == 'catalog_product')
@@ -39,13 +40,14 @@ class Cgi_UpdatePrice_Model_Observer
 
     private function _getOptionArray()
     {
-        $options = [
-            ['value' => 'add',           'label' => 'Add'],
-            ['value' => 'substract',     'label' => 'Substract'],
-            ['value' => 'add_percent',   'label' => 'Add percent'],
-            ['value' => 'substr_percent','label' => 'Substract percent'],
-            ['value' => 'multiple',      'label' => 'Multiplication']
-        ];
+        $operations = Mage::app()->getConfig()->getNode('global/price_mass_action/operations')->asArray();
+        $options = [];
+        foreach ($operations as $index=>$operation){
+            $options[] = [
+                'value' => $index,
+                'label' => $operation['label']
+            ];
+        }
         return $options;
     }
 

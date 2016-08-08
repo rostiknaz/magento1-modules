@@ -16,6 +16,30 @@
                 <class>Cgi_UpdatePrice_Model</class>
             </cgi_updateprice>
         </models>
+        <price_mass_action>
+            <operations>
+                <add>
+                    <label>Add</label>
+                    <class>cgi_updateprice/price_options_additional</class>
+                </add>
+                <substract>
+                    <label>Substract</label>
+                    <class>cgi_updateprice/price_options_substraction</class>
+                </substract>
+                <add_percent>
+                    <label>Add percent</label>
+                    <class>cgi_updateprice/price_options_addpercent</class>
+                </add_percent>
+                <substr_percent>
+                    <label>Substract percent</label>
+                    <class>cgi_updateprice/price_options_substrpercent</class>
+                </substr_percent>
+                <multiple>
+                    <label>Multiplication</label>
+                    <class>cgi_updateprice/price_options_multiplication</class>
+                </multiple>
+            </operations>
+        </price_mass_action>
     </global>
     <admin>
         <routers>

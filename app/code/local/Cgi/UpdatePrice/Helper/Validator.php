@@ -33,90 +33,12 @@ class Cgi_UpdatePrice_Helper_Validator extends Mage_Core_Helper_Abstract
 {
     public $error;
 
-    public function validate($option, $number)
+    public function validate($number)
     {
-        switch ($option){
-            case Cgi_UpdatePrice_Model_Price::ADD_OPTION:
-                $result = $this->_validateAddSubstrOption($number);
-                break;
-            case Cgi_UpdatePrice_Model_Price::SUBSTR_OPTION:
-                $result = $this->_validateAddSubstrOption($number);
-                break;
-            case Cgi_UpdatePrice_Model_Price::MULTILPE_OPTION:
-                $result = $this->_validateMultipleOption($number);
-                break;
-            case Cgi_UpdatePrice_Model_Price::ADD_PERCENT_OPTION:
-                $result = $this->_validatePercentOption($number);
-                break;
-            case Cgi_UpdatePrice_Model_Price::SUBSTR_PERCENT_OPTION:
-                $result = $this->_validatePercentOption($number);
-                break;
-        }
-        return $result;
-    }
-
-    private function _isNumeric($number)
-    {
-        if(is_numeric($number)){
+        if (is_numeric($number) && $number >= 0.01 && $number <= 100000) {
             return true;
         } else {
-            $this->error = 'Number not valid!';
-            return false;
-        }
-    }
-
-    protected function _validateMultipleOption($number){
-        if($this->_isNumeric($number)) {
-            if ($number > 0.1 && $number <= 10) {
-                return true;
-            } else {
-                $this->error = 'For add and substract percent option number, should not be higher then 10';
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    protected function _validatePercentOption($number){
-        if($this->_isNumeric($number)) {
-            if ($number > 0.1 && $number <= 100) {
-                return true;
-            } else {
-                $this->error = 'For add and substract percent option, number should not be higher then 100';
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-
-
-    protected function _validateAddSubstrOption($number)
-    {
-        if($this->_isNumeric($number)) {
-            if ($number > 0.1 && $number <= 10000) {
-                return true;
-            } else {
-                $this->error = 'For add and substract option number, should not be higher then 10000';
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    public function validateNewPrice($price)
-    {
-        if($this->_isNumeric($price)) {
-            if ($price > 0.1) {
-                return true;
-            } else {
-                $this->error = 'New price does not valid';
-                return false;
-            }
-        } else {
+            $this->error = 'Value should be a positive numeric number ';
             return false;
         }
     }
