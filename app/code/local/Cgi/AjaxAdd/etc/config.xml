@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cgi_AjaxAdd>
+            <version>0.0.1</version>
+        </Cgi_AjaxAdd>
+    </modules>
+    <global>
+        <blocks>
+            <ajaxadd>
+                <class>Cgi_AjaxAdd_Block</class>
+            </ajaxadd>
+        </blocks>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <ajaxadd>
+                    <file>cgi_ajaxadd.xml</file>
+                </ajaxadd>
+            </updates>
+        </layout>
+        <routers>
+            <cgi_ajaxadd>
+                <use>standard</use>
+                <args>
+                    <module>Cgi_AjaxAdd</module>
+                    <frontName>ajax</frontName>
+                </args>
+            </cgi_ajaxadd>
+        </routers>
+    </frontend>
+</config>

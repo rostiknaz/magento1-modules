@@ -1,5 +1,5 @@
 
 body             { background-color: red }
 a.level0, a         { color: red}
-img              { border: 2px solid red}
+/*img              { border: 2px solid red}*/
 a.logo img       { border: 0}

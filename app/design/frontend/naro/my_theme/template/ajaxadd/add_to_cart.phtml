@@ -1,0 +1,50 @@
+<script>
+    productAddToCartForm.submit = function(button, url) {
+        if (this.validator.validate()) {
+            var form = this.form;
+            var oldUrl = form.action;
+
+            if (url) {
+                form.action = url;
+            }
+            var e = null;
+//Start of our new ajax code
+            if(!url){
+                url = $j('#product_addtocart_form').attr('action');
+            }
+            url = url.replace("checkout/cart","ajax/cart"); // New Code
+            var data = $j('#product_addtocart_form').serialize();
+            data += '&isAjax=1';
+            $j('#ajax_loader').show();
+            try {
+                $j.ajax({
+                    url: url,
+                    dataType: 'json',
+                    type : 'post',
+                    data: data,
+                    success: function(data){
+                        $j('#ajax_loader').hide();
+                        $j('.count').html(data.count);
+                        if ($j('.header-minicart')) {
+                            $j('.header-minicart').html( data.minicart );
+                        }
+                        if($j('.block-cart')){
+                            $j('.block-cart').replaceWith(data.sidebar);
+                        }
+
+                        $j('<ul class="messages"><li class="'+data.status+'-msg"><ul><li><span>'+data.message+'</span></li></ul></li></ul>').insertAfter('#header-nav');
+                        setTimeout(function(){$j('.messages').fadeOut('fast')},3000);
+//                        alert(data.status + ": " + data.message);
+                    }
+                });
+            } catch (e) {
+            }
+//End of our new ajax code
+            this.form.action = oldUrl;
+            if (e) {
+                throw e;
+            }
+        }
+    }.bind(productAddToCartForm);
+
+</script>
