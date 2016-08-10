@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: naro
- * Date: 08.08.16
- * Time: 10:13
+ * Class for creating instance of option and calculate new price.
+ *
+ * @category   Cgi
+ * @package    Cgi_UpdatePrice
+ * @author     Nazymko Rostyslav CGI Trainee group beta
  */
 class Cgi_UpdatePrice_Model_Price_Calculate
 {

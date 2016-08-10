@@ -54,6 +54,12 @@ class Cgi_UpdatePrice_Model_Price
         }
     }
 
+    /**
+     * Get product collection by ids.
+     *
+     * @param array $product_ids
+     * @return Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     */
     protected function _getProductCollectionByIds($product_ids)
     {
         $productCollection = Mage::getResourceModel('catalog/product_collection')
@@ -63,8 +69,11 @@ class Cgi_UpdatePrice_Model_Price
     }
 
     /**
-     * Set product prices.
+     * Set new product price for each collection item.
      *
+     * @param object $productCollection
+     * @param string $option
+     * @param int|float $number
      * @return void
      */
     protected function _setNewPrice($productCollection, $option, $number)
@@ -86,6 +95,13 @@ class Cgi_UpdatePrice_Model_Price
         }
     }
 
+    /**
+     * Get instance of calculation class .
+     *
+     * @param string $option
+     * @param int|float $number
+     * @return Cgi_UpdatePrice_Model_Price_Calculate
+     */
     protected function _getOptionInstance($option, $number)
     {
         $option = Mage::getModel('cgi_updateprice/price_calculate',[
