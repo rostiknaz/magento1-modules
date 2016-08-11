@@ -6,8 +6,8 @@
         </reference>
     </catalog_product_view>
     <catalog_category_view>
-        <reference name="content">
-            <block type="ajaxadd/jsBlock"  name="ajax" template="ajaxadd/add_to_cart.phtml" />
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/addtocart.js</name></action>
         </reference>
     </catalog_category_view>
 </layout>

@@ -10,7 +10,22 @@
             <ajaxadd>
                 <class>Cgi_AjaxAdd_Block</class>
             </ajaxadd>
+            <!--<catalog>-->
+                <!--<rewrite>-->
+                    <!--<product_list>Cgi_AjaxAdd_Block_Catalog_Product_List</product_list>-->
+                <!--</rewrite>-->
+            <!--</catalog>-->
         </blocks>
+        <helpers>
+            <ajaxadd>
+                <class>Cgi_AjaxAdd_Helper_Data</class>
+            </ajaxadd>
+            <checkout>
+                <rewrite>
+                    <cart>Cgi_AjaxAdd_Helper_Cart</cart>
+                </rewrite>
+            </checkout>
+        </helpers>
     </global>
     <frontend>
         <layout>

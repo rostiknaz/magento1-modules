@@ -8,8 +8,5 @@
  */
 class Cgi_AjaxAdd_Block_JsBlock extends Mage_Catalog_Block_Product_Abstract
 {
-    public function getAddToCartUrl()
-    {
-        return 1;
-    }
+
 }
