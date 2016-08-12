@@ -51,14 +51,14 @@ class Cgi_AjaxAdd_CartController extends Mage_Checkout_CartController
 
                 if (!$this->_getSession()->getNoCartRedirect(true)) {
                     if (!$cart->getQuote()->getHasError()){
-                        $count = Mage::helper('checkout/cart')->getSummaryCount();
                         $message = $this->__('%s was added to your shopping cart.', Mage::helper('core')->htmlEscape($product->getName()));
                         $response['status'] = 'success';
                         $response['message'] = $message;
-                        $response['count'] = $count;
                         $this->loadLayout();
+                        $toplink = $this->getLayout()->getBlock('top.links')->toHtml();
                         $minicart = $this->getLayout()->getBlock('minicart_head')->toHtml(); // <-- here's the block
                         $response['minicart'] = $minicart;
+                        $response['toplink'] = $toplink;
                     }
                 }
             } catch (Mage_Core_Exception $e) {

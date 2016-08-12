@@ -26,13 +26,10 @@ function addToCart(url, product_id){
                 $j('html, body').animate({scrollTop: 0},500);
                 $j('#ajax_loader_'+ product_id).hide();
                 $j('#catalog_addtocart_'+ product_id).show();
-                $j('.count').html(data.count);
-                if ($j('.header-minicart')) {
-                    $j('.header-minicart').html( data.minicart );
-                }
-                if($j('.block-cart')){
-                    $j('.block-cart').replaceWith(data.sidebar);
-                }
+                $j('.header-minicart').html(data.minicart);
+                $j('#header-account').html(data.toplink);
+
+
 
                 $j('<ul class="messages">' +
                     '<li class="'+data.status+'-msg">' +
@@ -49,3 +46,43 @@ function addToCart(url, product_id){
         console.log(e);
     }
 }
+
+var skipContents = $j('.skip-content');
+var skipLinks = $j('.header-minicart a.skip-link');
+
+$j(document).on('click','.header-minicart a.skip-link', function (e) {
+    e.preventDefault();
+
+    var self = $j(this);
+    // Use the data-target-element attribute, if it exists. Fall back to href.
+    var target = self.attr('data-target-element') ? self.attr('data-target-element') : self.attr('href');
+    console.log(target);
+
+    // Get target element
+    var elem = $j(target);
+
+    // Check if stub is open
+    var isSkipContentOpen = elem.hasClass('skip-active') ? 1 : 0;
+
+    // Hide all stubs
+    skipLinks.removeClass('skip-active');
+    skipContents.removeClass('skip-active');
+
+    // Toggle stubs
+    if (isSkipContentOpen) {
+        self.removeClass('skip-active');
+    } else {
+        self.addClass('skip-active');
+        elem.addClass('skip-active');
+    }
+});
+
+$j(document).on('click', '.skip-link-close', function(e) {
+    var parent = $j(this).parents('.skip-content');
+    var link = parent.siblings('.skip-link');
+
+    parent.removeClass('skip-active');
+    link.removeClass('skip-active');
+
+    e.preventDefault();
+});

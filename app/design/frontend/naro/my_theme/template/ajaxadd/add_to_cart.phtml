@@ -8,7 +8,6 @@
                 form.action = url;
             }
             var e = null;
-//Start of our new ajax code
             if(!url){
                 url = $j('#product_addtocart_form').attr('action');
             }
@@ -24,17 +23,18 @@
                     data: data,
                     success: function(data){
                         $j('#ajax_loader').hide();
-                        $j('.count').html(data.count);
-                        if ($j('.header-minicart')) {
-                            $j('.header-minicart').html( data.minicart );
-                        }
-                        if($j('.block-cart')){
-                            $j('.block-cart').replaceWith(data.sidebar);
-                        }
+                        $j('.header-minicart').html(data.minicart);
+                        $j('#header-account').html(data.toplink);
 
-                        $j('<ul class="messages"><li class="'+data.status+'-msg"><ul><li><span>'+data.message+'</span></li></ul></li></ul>').insertAfter('#header-nav');
+                        $j('<ul class="messages">' +
+                                '<li class="'+data.status+'-msg">' +
+                                    '<ul>' +
+                                        '<li><span>'+data.message+'</span></li>' +
+                                    '</ul>' +
+                                '</li>' +
+                            '</ul>')
+                            .insertAfter('#header-nav');
                         setTimeout(function(){$j('.messages').fadeOut('fast')},3000);
-//                        alert(data.status + ": " + data.message);
                     }
                 });
             } catch (e) {
@@ -47,4 +47,49 @@
         }
     }.bind(productAddToCartForm);
 
+    var skipContents = $j('.skip-content');
+    var skipLinks = $j('.header-minicart a.skip-link');
+
+    $j(document).on('click','.header-minicart a.skip-link', function (e) {
+        e.preventDefault();
+
+        var self = $j(this);
+        // Use the data-target-element attribute, if it exists. Fall back to href.
+        var target = self.attr('data-target-element') ? self.attr('data-target-element') : self.attr('href');
+        console.log(target);
+
+        // Get target element
+        var elem = $j(target);
+
+        // Check if stub is open
+        var isSkipContentOpen = elem.hasClass('skip-active') ? 1 : 0;
+
+        // Hide all stubs
+        var parent = $j(this).parents('.skip-content');
+        var link = parent.siblings('.skip-link');
+
+        parent.removeClass('skip-active');
+        link.removeClass('skip-active');
+
+        e.preventDefault();
+
+        // Toggle stubs
+        if (isSkipContentOpen) {
+            parent.removeClass('skip-active');
+            link.removeClass('skip-active');
+        } else {
+            self.addClass('skip-active');
+            elem.addClass('skip-active');
+        }
+    });
+
+    $j(document).on('click', '.skip-link-close', function(e) {
+        var parent = $j(this).parents('.skip-content');
+        var link = parent.siblings('.skip-link');
+
+        parent.removeClass('skip-active');
+        link.removeClass('skip-active');
+
+        e.preventDefault();
+    });
 </script>
